@@ -43,6 +43,10 @@ body {
 .input-section {
     flex: 60%;
     background-color: var(--color-secondary);
+    background-image: url('background.jpg'); /* Imagem de fundo */
+    background-size: cover; /* Faz com que a imagem cubra toda a área */
+    background-position: bottom center; /* Posiciona a imagem na parte inferior */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
     border: 1px solid #000;
     border-radius: 64px 64px 0 0;
     display: flex;
@@ -65,7 +69,7 @@ body {
     font-family: "Inter", serif;
     font-size: 36px;
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--color-white);
     margin: 10px 0;
     text-align: center;
 }
@@ -128,7 +132,7 @@ button {
 /* Listas */
 ul {
     list-style-type: none;
-    color: var(--color-text);
+    color: var(--color-white);
     font-family: "Inter", sans-serif;
     font-size: 18px;
     margin: 20px 0;
