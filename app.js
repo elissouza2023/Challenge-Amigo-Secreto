@@ -1,12 +1,12 @@
 let listaDeAmigos = [];
 let nomesSorteados = [];
 
-// para funcionar o botão adicionar um amigo à lista
+// Função para adicionar um amigo à lista
 function adicionarAmigo() {
     const nomeAmigo = document.getElementById('amigo').value;
     if (nomeAmigo.trim() !== '') {
         listaDeAmigos.push(nomeAmigo);
-        console.log(listaDeAmigos);
+        console.log("Lista de amigos atualizada:", listaDeAmigos);
         exibirListaDeAmigos();
         document.getElementById('amigo').value = ''; // Limpa o campo de input
     } else {
@@ -14,7 +14,7 @@ function adicionarAmigo() {
     }
 }
 
-// para fazer funcionar a exibição da lista de amigos no HTML noitem ul com id listaAmigos
+// Função para exibir a lista de amigos no HTML
 function exibirListaDeAmigos() {
     const ul = document.getElementById('listaAmigos');
     ul.innerHTML = ''; // Limpa a lista antes de reexibir
@@ -26,22 +26,48 @@ function exibirListaDeAmigos() {
     });
 }
 
-// para criar ação no botão para sortear um amigo
+// Função para sortear um amigo
 function sortearAmigo() {
     if (listaDeAmigos.length > 0) {
         let codigoIndexacao = Math.floor(Math.random() * listaDeAmigos.length);
-        console.log('Amigo sorteado foi:', listaDeAmigos[codigoIndexacao]);
-        exibirResultado(listaDeAmigos[codigoIndexacao]);
-    } else {
-        console.log('Nenhum amigo na lista para sortear.');
+        let amigoSorteado = listaDeAmigos.splice(codigoIndexacao, 1)[0]; // Remove e retorna o sorteado
+        
+        nomesSorteados.push(amigoSorteado);
+        console.log('Amigo sorteado:', amigoSorteado);
+        console.log('Lista de sorteados:', nomesSorteados);
+        
+        exibirResultado(amigoSorteado);
+    }
+
+    // Se todos os amigos foram sorteados, exibir mensagem
+    if (listaDeAmigos.length === 0 && nomesSorteados.length > 0) {
+        exibirResultado('Todos os amigos foram sorteados.');
     }
 }
 
-// para exibir o resultado do sorteio no html no item ul com id resultado
-function exibirResultado(nomeAmigo) {
+// Função para exibir o resultado do sorteio
+function exibirResultado(mensagem) {
     const ul = document.getElementById('resultado');
     ul.innerHTML = ''; // Limpa qualquer conteúdo anterior
     const li = document.createElement('li');
-    li.textContent = 'O Amigo Sorteado Foi: ' + nomeAmigo;
+    li.textContent = mensagem;
     ul.appendChild(li);
+
+    // Chamar a API de voz corretamente
+    responsiveVoice.speak(mensagem, 'Brazilian Portuguese Female', { rate: 1.2 });
 }
+
+// Função para resetar o sorteio (chamada pelo botão)
+function resetarSorteio() {
+    listaDeAmigos = [];
+    nomesSorteados = [];
+
+    // Limpa a exibição das listas na interface
+    document.getElementById('listaAmigos').innerHTML = '';
+    document.getElementById('resultado').innerHTML = '';
+
+    console.log("Novo sorteio iniciado! Adicione novos amigos.");
+}
+
+// Adicionando evento ao botão para resetar sorteio
+document.getElementById('btnResetar').addEventListener('click', resetarSorteio);
