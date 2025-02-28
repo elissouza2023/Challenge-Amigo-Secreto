@@ -35,16 +35,23 @@ function sortearAmigo() {
         nomesSorteados.push(amigoSorteado);
         console.log('Amigo sorteado:', amigoSorteado);
         console.log('Lista de sorteados:', nomesSorteados);
-        
-        exibirResultado(amigoSorteado);
+
+        exibirResultado(amigoSorteado); // Exibe o amigo sorteado
+
+        // Se agora a lista de amigos estiver vazia, exibir mensagem de conclusão
+        if (listaDeAmigos.length === 0) {
+            setTimeout(() => {
+                exibirResultado('Todos os amigos foram sorteados.');
+            }, 2000); // Pequeno delay para não sobrepor imediatamente o último nome
+        }
     }
+}
+
 
     // Se todos os amigos foram sorteados, exibir mensagem
     if (listaDeAmigos.length === 0 && nomesSorteados.length > 0) {
         exibirResultado('Todos os amigos foram sorteados.');
     }
-}
-
 // Função para exibir o resultado do sorteio
 function exibirResultado(mensagem) {
     const ul = document.getElementById('resultado');
